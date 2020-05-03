@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zcoox.mmalljob.order.dao.OrderDao">
+  <resultMap id="BaseResultMap" type="com.zcoox.mmalljob.order.entity.Order">
+    <constructor>
+      <idArg column="_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="amount" javaType="java.math.BigDecimal" jdbcType="DECIMAL" />
+      <arg column="state" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="receive_name" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="receive_address" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="receive_mobile" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="create_user" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="create_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="update_user" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="update_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="del_state" javaType="java.lang.Integer" jdbcType="INTEGER" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    _id, amount, state, receive_name, receive_address, receive_mobile, create_user, create_time, 
+    update_user, update_time, del_state
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from mmall_order
+    where _id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from mmall_order
+    where _id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zcoox.mmalljob.order.entity.Order">
+    insert into mmall_order (_id, amount, state, 
+      receive_name, receive_address, receive_mobile, 
+      create_user, create_time, update_user, 
+      update_time, del_state)
+    values (#{id,jdbcType=INTEGER}, #{amount,jdbcType=DECIMAL}, #{state,jdbcType=INTEGER}, 
+      #{receiveName,jdbcType=VARCHAR}, #{receiveAddress,jdbcType=VARCHAR}, #{receiveMobile,jdbcType=VARCHAR}, 
+      #{createUser,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{delState,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zcoox.mmalljob.order.entity.Order">
+    insert into mmall_order
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        _id,
+      </if>
+      <if test="amount != null">
+        amount,
+      </if>
+      <if test="state != null">
+        state,
+      </if>
+      <if test="receiveName != null">
+        receive_name,
+      </if>
+      <if test="receiveAddress != null">
+        receive_address,
+      </if>
+      <if test="receiveMobile != null">
+        receive_mobile,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="delState != null">
+        del_state,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="amount != null">
+        #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="receiveName != null">
+        #{receiveName,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveAddress != null">
+        #{receiveAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveMobile != null">
+        #{receiveMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="delState != null">
+        #{delState,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zcoox.mmalljob.order.entity.Order">
+    update mmall_order
+    <set>
+      <if test="amount != null">
+        amount = #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="state != null">
+        state = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="receiveName != null">
+        receive_name = #{receiveName,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveAddress != null">
+        receive_address = #{receiveAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveMobile != null">
+        receive_mobile = #{receiveMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="delState != null">
+        del_state = #{delState,jdbcType=INTEGER},
+      </if>
+    </set>
+    where _id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zcoox.mmalljob.order.entity.Order">
+    update mmall_order
+    set amount = #{amount,jdbcType=DECIMAL},
+      state = #{state,jdbcType=INTEGER},
+      receive_name = #{receiveName,jdbcType=VARCHAR},
+      receive_address = #{receiveAddress,jdbcType=VARCHAR},
+      receive_mobile = #{receiveMobile,jdbcType=VARCHAR},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      del_state = #{delState,jdbcType=INTEGER}
+    where _id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

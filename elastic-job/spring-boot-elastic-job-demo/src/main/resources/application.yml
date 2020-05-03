@@ -1,0 +1,8 @@
+elastic-job:
+  zookeeper:
+    server-list: 127.0.0.1:2181
+    namespace: springboot-elastic-job-demo
+  myBootSimpleJob:
+    cron: 0/20 * * * * ?
+    shardingTotalCount: 5
+    overwrite: true

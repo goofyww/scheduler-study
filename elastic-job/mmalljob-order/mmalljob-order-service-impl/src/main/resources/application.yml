@@ -1,0 +1,35 @@
+spring:
+  application:
+    name: mmalljob-order
+  datasource:
+    name: mmalljob-order
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/mmall_order?serverTimezone=CTT&useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true
+    username: root
+    password: 123456
+
+mybatis:
+  type-aliases-package: com.zcoox.mmalljob.order.entity
+  config-location: classpath:mybatis/mybatis-config.xml
+  mapper-locations: classpath*:com/zcoox/mmalljob/**/dao/mapping/*.xml,classpath*:com/zcoox/mmalljob/**/dao/mapping/extend/*.xml
+
+logging:
+  level:
+    root: info
+    org.springframework.web: info
+    org.apache.ibatis: debug
+    io.netty: info
+  path: ./logs/mmalljob-order
+
+elastic-job:
+  zookeeper:
+    server-list: 127.0.0.1:2181
+    namespace: ${spring.application.name}
+  myShardingJob:
+    cron: 0/15 * * * * ?
+    shardingTotalCount: 10
+    overwrite: true
+    jobShardingStrategyClass: com.zcoox.mmalljob.order.job.sharding.OrderShardingStrategy
+    eventTraceRdbDataSource: dataSource
+    listeners: com.zcoox.mmalljob.order.job.listener.OrderListener,com.zcoox.mmalljob.order.job.listener.OrderTwoListener
+#    distributedListeners: com.zcoox.mmalljob.order.job.listener.OrderDistributeListener,com.zcoox.mmalljob.order.job.listener.OrderDistributeTwoListener

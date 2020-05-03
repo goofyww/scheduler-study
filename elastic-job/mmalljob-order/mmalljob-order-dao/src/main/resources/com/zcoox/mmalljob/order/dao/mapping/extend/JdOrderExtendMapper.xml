@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zcoox.mmalljob.order.dao.extend.JdOrderExtendDao">
+  <resultMap id="BaseResultMap" type="com.zcoox.mmalljob.order.entity.JdOrder">
+    <constructor>
+      <idArg column="_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="state" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="amount" javaType="java.math.BigDecimal" jdbcType="DECIMAL" />
+      <arg column="create_user" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="create_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="update_user" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="update_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="del_state" javaType="java.lang.Integer" jdbcType="INTEGER" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    _id, state, amount, create_user, create_time, update_user, update_time, del_state
+  </sql>
+
+  <select id="getNotFetchedOrder" resultMap="BaseResultMap">
+    SELECT
+	<include refid="Base_Column_List"/>
+    FROM
+        jd_order
+    WHERE
+        1 = 1
+        AND state = 0
+        LIMIT #{count}
+  </select>
+</mapper>
